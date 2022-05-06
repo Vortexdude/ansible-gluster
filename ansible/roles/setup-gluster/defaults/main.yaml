@@ -1,0 +1,10 @@
+---
+packages:
+  - wget
+  - centos-release-gluster
+  - epel-release
+  - glusterfs-server
+
+export_device: /dev/vdb
+export_dir: /data/brick1
+volume_name: gv0

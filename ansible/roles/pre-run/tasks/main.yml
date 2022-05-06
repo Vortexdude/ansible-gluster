@@ -1,0 +1,39 @@
+---
+
+
+- name: install the system packages
+  package:
+    name: "{{ item }}"
+  with_items: "{{ packages }}"
+
+- name: Create a ext2 filesystem on /dev/sdb1
+  community.general.filesystem:
+    fstype: xfs
+    dev: "{{ export_device }}"
+
+- name: create export directory
+  file: 
+    name: "{{ export_dir }}"
+    state: directory
+    recurse: yes
+
+- name: create volume directory
+  file: 
+    name: "{{ volume_name }}"
+    state: directory
+    recurse: yes
+
+- name: mount the device to the directory
+  mount:
+    path: "{{ export_dir }}"
+    src: "{{ export_device }}"
+    fstype: xfs
+    dump: 1
+    passno: 2
+    state: present
+
+- name: enable and start the gluster service
+  service:
+    name: glusterd
+    state: restarted
+    enabled: yes

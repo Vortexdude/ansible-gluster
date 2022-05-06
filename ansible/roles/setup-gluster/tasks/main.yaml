@@ -1,0 +1,20 @@
+---
+
+- name: entry on fs table on admin node to accept the request
+  shell: |
+    "iptables -I INPUT -p all -s {{ master_node }} -j ACCEPT"
+    "iptables -I INPUT -p all -s {{ slave_node1 }} -j ACCEPT"
+    "iptables -I INPUT -p all -s {{ slave_node2 }} -j ACCEPT"
+
+- name: peer prob from one node
+  shell: |
+    "gluster peer probe {{ slave_node1 }}"
+    "gluster peer probe {{ slave_node1 }}"
+
+- name: creating the volume for gluster
+  shell: "gluster volume create {{ volume_name }} replica 3 {{ master_node }}:{{ export_dir }}/{{ volume_name }} {{ slave1_node }}:{{ export_dir }}/{{ volume_name }} {{ slave2_node }}:{{ export_dir }}/{{ volume_name }}"
+
+- name: start the volume
+  shell: "gluster volume start {{ volume_name }}"
+
+- debug: msg="Mount by the following command = mount -t glusterfs {{ ansible_default_ipv4.address }}:{{ volume_name }} /mnt"

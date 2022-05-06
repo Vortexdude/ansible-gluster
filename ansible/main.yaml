@@ -1,0 +1,13 @@
+
+- hosts: 
+    - master
+    - slaves
+  become: true
+  roles:
+    - { role: pre-run }
+
+- hosts:
+    - master
+  become: yes
+  roles:
+    - { role: setup-gluster }
