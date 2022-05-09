@@ -1,7 +1,7 @@
 ---
 master_node: hostvars[inventory_hostname]['groups']['master']
-slave_node1: hostvars[inventory_hostname]['groups']['slave'][0]
-slave_node2: hostvars[inventory_hostname]['groups']['slave'][1]
+slave_node1: hostvars[inventory_hostname]['groups']['slave1']
+slave_node2: hostvars[inventory_hostname]['groups']['slave2']
 export_device: /dev/vdb
 export_dir: /data/brick1
 volume_name: gv0
