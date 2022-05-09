@@ -37,3 +37,9 @@
     name: glusterd
     state: restarted
     enabled: yes
+
+- name: entry on fs table on admin node to accept the request
+  shell: |
+    "iptables -I INPUT -p all -s {{ master_node }} -j ACCEPT"
+    "iptables -I INPUT -p all -s {{ slave_node1 }} -j ACCEPT"
+    "iptables -I INPUT -p all -s {{ slave_node2 }} -j ACCEPT"
