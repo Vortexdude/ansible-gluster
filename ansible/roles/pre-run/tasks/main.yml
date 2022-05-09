@@ -6,18 +6,18 @@
     name: "{{ item }}"
   with_items: "{{ packages }}"
 
-- name: Create a ext2 filesystem on /dev/sdb1
+- name: "create a ext2 filesystem on {{ export_device }}"
   community.general.filesystem:
     fstype: xfs
     dev: "{{ export_device }}"
 
-- name: create export directory
+- name: "create export directory {{ export_dir }}"
   file: 
     name: "{{ export_dir }}"
     state: directory
     recurse: yes
 
-- name: create volume directory
+- name: "create volume directory {{ volume_name }}"
   file: 
     name: "{{ volume_name }}"
     state: directory

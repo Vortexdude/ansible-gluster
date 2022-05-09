@@ -3,7 +3,7 @@
 - name: peer prob from one node
   shell: |
     "gluster peer probe {{ slave_node1 }}"
-    "gluster peer probe {{ slave_node1 }}"
+    "gluster peer probe {{ slave_node2 }}"
 
 - name: get the full path of the volume
   set_fact:
